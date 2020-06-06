@@ -1,0 +1,109 @@
+Books_Authors
+
+
+from app_one.models import *
+
+Book.objects.create(title='C Sharp',desc='A book about C Sharp')
+Book.objects.create(title='Java',desc='A book about Java')
+Book.objects.create(title='Python',desc='A book about Python')
+Book.objects.create(title='PHP',desc='A book about PHP')
+Book.objects.create(title='Ruby',desc='A book about Ruby')
+
+
+Author.objects.create(first_name='Jane',last_name='Austen')
+Author.objects.create(first_name='Emily',last_name='Dickinson')
+Author.objects.create(first_name='Fyodor',last_name='Dostoevsky')
+Author.objects.create(first_name='William',last_name='Shakespeare')
+Author.objects.create(first_name='Lau',last_name='Tzu')
+
+
+* 'notes' column added to Author with default value ''
+
+
+book1=Book.objects.get(id=1)
+book1.title="C#"
+book1.desc="A book about C#"
+book1.save()
+
+
+author1=Author.objects.get(id=4)
+author1.first_name="Bill"
+author1.save()
+
+
+ Query: Assign the first author to the first 2 books
+
+bookrel1=Book.objects.get(id=1)
+bookrel2=Book.objects.get(id=2)
+authrel1=Author.objects.get(id=1)
+bookrel1.authors.add(authrel1)
+bookrel2.authors.add(authrel1)
+
+
+ Query: Assign the second author to the first 3 books
+
+//bookrel1=Book.objects.get(id=1)
+//bookrel2=Book.objects.get(id=2)
+bookrel3=Book.objects.get(id=3)
+authrel2=Author.objects.get(id=2)
+bookrel1.authors.add(authrel2)
+bookrel2.authors.add(authrel2)
+bookrel3.authors.add(authrel2)
+
+
+ Query: Assign the third author to the first 4 books
+
+//bookrel1=Book.objects.get(id=1)
+//bookrel2=Book.objects.get(id=2)
+//bookrel3=Book.objects.get(id=3)
+bookrel4=Book.objects.get(id=4)
+authrel3=Author.objects.get(id=3)
+bookrel1.authors.add(authrel3)
+bookrel2.authors.add(authrel3)
+bookrel3.authors.add(authrel3)
+bookrel4.authors.add(authrel3)
+
+
+ Query: Assign the fourth author to the first 5 books (or in other words, all the books)
+
+//bookrel1=Book.objects.get(id=1)
+//bookrel2=Book.objects.get(id=2)
+//bookrel3=Book.objects.get(id=3)
+//bookrel4=Book.objects.get(id=4)
+bookrel5=Book.objects.get(id=5)
+authrel4=Author.objects.get(id=4)
+bookrel1.authors.add(authrel4)
+bookrel2.authors.add(authrel4)
+bookrel3.authors.add(authrel4)
+bookrel4.authors.add(authrel4)
+bookrel5.authors.add(authrel4)
+
+
+ Query: Retrieve all the authors for the 3rd book
+
+book3=Book.objects.get(id=3)
+book3.authors.all()
+
+
+ Query: Remove the first author of the 3rd book
+
+author3_1=book3.authors.first()
+book3.authors.remove(author3_1)
+
+
+ Query: Add the 5th author as one of the authors of the 2nd book
+
+authrel5=Author.objects.get(id=5)
+bookrel2.authors.add(authrel5)
+
+
+ Query: Find all the books that the 3rd author is part of
+
+author3=Author.objects.get(id=3)
+author3.books.all()
+
+
+ Query: Find all the authors that contributed to the 5th book
+
+book5=Book.objects.get(id=5)
+book5.authors.all()
